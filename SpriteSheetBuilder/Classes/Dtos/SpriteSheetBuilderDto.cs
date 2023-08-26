@@ -35,7 +35,7 @@ namespace SpriteSheetBuilder
     
     #endregion
 
-    class SpriteSheetBuilderDto
+    public class SpriteSheetBuilderDto
     {
         public SpriteSheetBuilderDto()
         {

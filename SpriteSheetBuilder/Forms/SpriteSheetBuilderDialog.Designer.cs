@@ -34,19 +34,28 @@
             this.newSpriteSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSpriteSheetBuildFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSpriteSheetBuildFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buildSpriteSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buildAlphaMaskSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.singleImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stripToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moveSelectionUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moveSelectionDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buildSpriteSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buildAlphaMaskSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.previewSpriteSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backgroundColorSchemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.standardBgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.darkBgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vividBgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.neonBgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pastelBgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bgThemesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,8 +63,8 @@
             // 
             this.msMainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.viewToolStripMenuItem});
+            this.viewToolStripMenuItem,
+            this.configToolStripMenuItem});
             this.msMainMenu.Location = new System.Drawing.Point(0, 0);
             this.msMainMenu.Name = "msMainMenu";
             this.msMainMenu.Size = new System.Drawing.Size(944, 24);
@@ -71,7 +80,8 @@
             this.addImagesToolStripMenuItem,
             this.buildSpriteSheetToolStripMenuItem,
             this.buildAlphaMaskSheetToolStripMenuItem,
-            this.exportSheetToolStripMenuItem});
+            this.exportSheetToolStripMenuItem,
+            this.recentFilesToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -97,30 +107,6 @@
             this.openSpriteSheetBuildFileToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.openSpriteSheetBuildFileToolStripMenuItem.Text = "Open Sprite Sheet Build File";
             this.openSpriteSheetBuildFileToolStripMenuItem.Click += new System.EventHandler(this.openSpriteSheetBuildFileToolStripMenuItem_Click);
-            // 
-            // buildSpriteSheetToolStripMenuItem
-            // 
-            this.buildSpriteSheetToolStripMenuItem.Enabled = false;
-            this.buildSpriteSheetToolStripMenuItem.Name = "buildSpriteSheetToolStripMenuItem";
-            this.buildSpriteSheetToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.buildSpriteSheetToolStripMenuItem.Text = "Build Sprite Sheet";
-            this.buildSpriteSheetToolStripMenuItem.Click += new System.EventHandler(this.buildSpriteSheetToolStripMenuItem_Click);
-            // 
-            // buildAlphaMaskSheetToolStripMenuItem
-            // 
-            this.buildAlphaMaskSheetToolStripMenuItem.Enabled = false;
-            this.buildAlphaMaskSheetToolStripMenuItem.Name = "buildAlphaMaskSheetToolStripMenuItem";
-            this.buildAlphaMaskSheetToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.buildAlphaMaskSheetToolStripMenuItem.Text = "Build Alpha Mask Sheet";
-            this.buildAlphaMaskSheetToolStripMenuItem.Click += new System.EventHandler(this.buildAlphaMaskSheetToolStripMenuItem_Click);
-            // 
-            // exportSheetToolStripMenuItem
-            // 
-            this.exportSheetToolStripMenuItem.Enabled = false;
-            this.exportSheetToolStripMenuItem.Name = "exportSheetToolStripMenuItem";
-            this.exportSheetToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.exportSheetToolStripMenuItem.Text = "Export Sheet";
-            this.exportSheetToolStripMenuItem.Click += new System.EventHandler(this.exportSheetToolStripMenuItem_Click);
             // 
             // addImagesToolStripMenuItem
             // 
@@ -157,49 +143,147 @@
             this.sheetToolStripMenuItem.Text = "From Sheet";
             this.sheetToolStripMenuItem.Click += new System.EventHandler(this.sheetToolStripMenuItem_Click);
             // 
-            // editToolStripMenuItem
+            // buildSpriteSheetToolStripMenuItem
             // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.moveSelectionUpToolStripMenuItem,
-            this.moveSelectionDownToolStripMenuItem,
-            this.setToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Visible = false;
+            this.buildSpriteSheetToolStripMenuItem.Enabled = false;
+            this.buildSpriteSheetToolStripMenuItem.Name = "buildSpriteSheetToolStripMenuItem";
+            this.buildSpriteSheetToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.buildSpriteSheetToolStripMenuItem.Text = "Build Sprite Sheet";
+            this.buildSpriteSheetToolStripMenuItem.Click += new System.EventHandler(this.buildSpriteSheetToolStripMenuItem_Click);
             // 
-            // moveSelectionUpToolStripMenuItem
+            // buildAlphaMaskSheetToolStripMenuItem
             // 
-            this.moveSelectionUpToolStripMenuItem.Name = "moveSelectionUpToolStripMenuItem";
-            this.moveSelectionUpToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.moveSelectionUpToolStripMenuItem.Text = "Move Selection Up";
+            this.buildAlphaMaskSheetToolStripMenuItem.Enabled = false;
+            this.buildAlphaMaskSheetToolStripMenuItem.Name = "buildAlphaMaskSheetToolStripMenuItem";
+            this.buildAlphaMaskSheetToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.buildAlphaMaskSheetToolStripMenuItem.Text = "Build Alpha Mask Sheet";
+            this.buildAlphaMaskSheetToolStripMenuItem.Visible = false;
+            this.buildAlphaMaskSheetToolStripMenuItem.Click += new System.EventHandler(this.buildAlphaMaskSheetToolStripMenuItem_Click);
             // 
-            // moveSelectionDownToolStripMenuItem
+            // exportSheetToolStripMenuItem
             // 
-            this.moveSelectionDownToolStripMenuItem.Name = "moveSelectionDownToolStripMenuItem";
-            this.moveSelectionDownToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.moveSelectionDownToolStripMenuItem.Text = "Move Selection Down";
+            this.exportSheetToolStripMenuItem.Enabled = false;
+            this.exportSheetToolStripMenuItem.Name = "exportSheetToolStripMenuItem";
+            this.exportSheetToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.exportSheetToolStripMenuItem.Text = "Export Sheet";
+            this.exportSheetToolStripMenuItem.Click += new System.EventHandler(this.exportSheetToolStripMenuItem_Click);
             // 
-            // setToolStripMenuItem
+            // recentFilesToolStripMenuItem
             // 
-            this.setToolStripMenuItem.Name = "setToolStripMenuItem";
-            this.setToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.setToolStripMenuItem.Text = "Set";
+            this.recentFilesToolStripMenuItem.Enabled = false;
+            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.recentFilesToolStripMenuItem.Text = "Recent Files";
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.previewSpriteSheetToolStripMenuItem});
+            this.backgroundColorSchemeToolStripMenuItem,
+            this.zoomToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
-            this.viewToolStripMenuItem.Visible = false;
             // 
-            // previewSpriteSheetToolStripMenuItem
+            // backgroundColorSchemeToolStripMenuItem
             // 
-            this.previewSpriteSheetToolStripMenuItem.Name = "previewSpriteSheetToolStripMenuItem";
-            this.previewSpriteSheetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.previewSpriteSheetToolStripMenuItem.Text = "Preview Sprite Sheet";
+            this.backgroundColorSchemeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.standardBgToolStripMenuItem,
+            this.darkBgToolStripMenuItem,
+            this.vividBgToolStripMenuItem,
+            this.neonBgToolStripMenuItem,
+            this.pastelBgToolStripMenuItem,
+            this.customToolStripMenuItem});
+            this.backgroundColorSchemeToolStripMenuItem.Name = "backgroundColorSchemeToolStripMenuItem";
+            this.backgroundColorSchemeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backgroundColorSchemeToolStripMenuItem.Text = "Background Theme";
+            // 
+            // standardBgToolStripMenuItem
+            // 
+            this.standardBgToolStripMenuItem.Checked = true;
+            this.standardBgToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.standardBgToolStripMenuItem.Name = "standardBgToolStripMenuItem";
+            this.standardBgToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.standardBgToolStripMenuItem.Text = "Standard";
+            this.standardBgToolStripMenuItem.Click += new System.EventHandler(this.standardBgToolStripMenuItem_Click);
+            // 
+            // darkBgToolStripMenuItem
+            // 
+            this.darkBgToolStripMenuItem.Name = "darkBgToolStripMenuItem";
+            this.darkBgToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.darkBgToolStripMenuItem.Text = "Dark";
+            this.darkBgToolStripMenuItem.Click += new System.EventHandler(this.darkBgToolStripMenuItem_Click);
+            // 
+            // vividBgToolStripMenuItem
+            // 
+            this.vividBgToolStripMenuItem.Name = "vividBgToolStripMenuItem";
+            this.vividBgToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.vividBgToolStripMenuItem.Text = "Vivid";
+            this.vividBgToolStripMenuItem.Click += new System.EventHandler(this.vividBgToolStripMenuItem_Click);
+            // 
+            // neonBgToolStripMenuItem
+            // 
+            this.neonBgToolStripMenuItem.Name = "neonBgToolStripMenuItem";
+            this.neonBgToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.neonBgToolStripMenuItem.Text = "Neon";
+            this.neonBgToolStripMenuItem.Click += new System.EventHandler(this.neonBgToolStripMenuItem_Click);
+            // 
+            // pastelBgToolStripMenuItem
+            // 
+            this.pastelBgToolStripMenuItem.Name = "pastelBgToolStripMenuItem";
+            this.pastelBgToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.pastelBgToolStripMenuItem.Text = "Pastel";
+            this.pastelBgToolStripMenuItem.Click += new System.EventHandler(this.pastelBgToolStripMenuItem_Click);
+            // 
+            // customToolStripMenuItem
+            // 
+            this.customToolStripMenuItem.Name = "customToolStripMenuItem";
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.customToolStripMenuItem.Text = "Custom";
+            // 
+            // zoomToolStripMenuItem
+            // 
+            this.zoomToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem6});
+            this.zoomToolStripMenuItem.Name = "zoomToolStripMenuItem";
+            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zoomToolStripMenuItem.Text = "Scaling";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Checked = true;
+            this.toolStripMenuItem4.CheckOnClick = true;
+            this.toolStripMenuItem4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(86, 22);
+            this.toolStripMenuItem4.Text = "1x";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(86, 22);
+            this.toolStripMenuItem5.Text = "2x";
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(86, 22);
+            this.toolStripMenuItem6.Text = "3x";
+            // 
+            // configToolStripMenuItem
+            // 
+            this.configToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bgThemesToolStripMenuItem});
+            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.configToolStripMenuItem.Text = "Config";
+            // 
+            // bgThemesToolStripMenuItem
+            // 
+            this.bgThemesToolStripMenuItem.Name = "bgThemesToolStripMenuItem";
+            this.bgThemesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.bgThemesToolStripMenuItem.Text = "Background Themes";
             // 
             // SpriteSheetBuilderDialog
             // 
@@ -236,11 +320,20 @@
         private System.Windows.Forms.ToolStripMenuItem singleImageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stripToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sheetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveSelectionUpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveSelectionDownToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bgThemesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem previewSpriteSheetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recentFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backgroundColorSchemeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem standardBgToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem darkBgToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vividBgToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem neonBgToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem pastelBgToolStripMenuItem;
     }
 }

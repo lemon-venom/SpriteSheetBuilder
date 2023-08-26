@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace SpriteSheetBuilder
 {
@@ -15,21 +17,44 @@ namespace SpriteSheetBuilder
 
         #region Private Variables
 
-        private string buildFileName_ = string.Empty;
+        private IBackgroundGenerator    backgroundGenerator_ = new CheckeredBackgroundGenerator(); // Someday might want other patterns, but only one for now.
 
-        private bool changesMade_ = false;
+        private string                  buildFileName_ = string.Empty;
 
-        private Bitmap bmpSpriteSheet_;
+        private bool                    changesMade_ = false;
 
-        private SpriteSheetBuilderDto spriteSheetBuilderDto_ = new SpriteSheetBuilderDto();
+        private Bitmap                  bmpSpriteSheet_;
+
+        private SpriteSheetBuilderDto   spriteSheetBuilderDto_ = new SpriteSheetBuilderDto();
 
         #endregion
 
         #region Properties
 
+        public BackgroundColorScheme BackgroundColorScheme
+        {
+            get
+            {
+                return backgroundGenerator_.BackgroundColorScheme;
+            }
+            set
+            {
+                backgroundGenerator_.BackgroundColorScheme = value;
+
+                backgroundGenerator_.Regenerate();
+
+                pbSheetPreview.Refresh();
+            }
+        }
+
         public bool ChangesMade
         {
             get { return changesMade_; }
+        }
+
+        public string CurrentBuildFileName
+        {
+            get { return buildFileName_; }
         }
 
         #endregion
@@ -262,127 +287,115 @@ namespace SpriteSheetBuilder
                 {
                     SheetImageSourceDto imageSource = spriteSheetBuilderDto_.ImageSourceList[i];
 
-                    Bitmap spriteImageSource = new Bitmap(imageSource.FileName);
-
-                    Bitmap spriteImageResult = new Bitmap(imageSource.FileName);
-
-                    // This has ugly results. I'm not sure how PNG does transparent backgrounds, but it's apparently not how I think it does.
-
-                    //// Map a background color to magenta.
-                    //ColorMap[] colorMap = new ColorMap[1];
-
-                    //colorMap[0] = new ColorMap();
-
-                    //colorMap[0].OldColor = Color.FromArgb(0, 255, 255, 255);
-
-                    //colorMap[0].NewColor = Color.Magenta;
-
-                    //ImageAttributes attr = new ImageAttributes();
-
-                    //attr.SetRemapTable(colorMap);
-
-                    for (int j = 0; j < imageSource.CellCount; j++)
+                    if (File.Exists(imageSource.FileName))
                     {
-                        int sourceCol = j % imageSource.Columns;
+                        Bitmap spriteImageSource = new Bitmap(imageSource.FileName);
 
-                        int sourceRow = Convert.ToInt32(Math.Floor((float)(j / imageSource.Columns)));
+                        Bitmap spriteImageResult = new Bitmap(imageSource.FileName);
 
-                        int destCol = imageCounter % spriteSheetBuilderDto_.Columns;
-
-                        int destRow = Convert.ToInt32(Math.Floor((float)(imageCounter / spriteSheetBuilderDto_.Columns)));
-
-                        int destX = destCol * spriteSheetBuilderDto_.CellWidth;
-
-                        // Apply a transform for alignment.
-                        switch (spriteSheetBuilderDto_.HorizontalAlignment)
+                        for (int j = 0; j < imageSource.CellCount; j++)
                         {
-                            case SheetCellHorizontalAlignment.Center:
+                            int sourceCol = j % imageSource.Columns;
 
-                                destX += ((spriteSheetBuilderDto_.CellWidth / 2) - (imageSource.CellWidth / 2));
+                            int sourceRow = Convert.ToInt32(Math.Floor((float)(j / imageSource.Columns)));
 
-                                break;
+                            int destCol = imageCounter % spriteSheetBuilderDto_.Columns;
 
-                            case SheetCellHorizontalAlignment.Right:
+                            int destRow = Convert.ToInt32(Math.Floor((float)(imageCounter / spriteSheetBuilderDto_.Columns)));
 
-                                destX += (spriteSheetBuilderDto_.CellWidth - imageSource.CellWidth);
+                            int destX = destCol * spriteSheetBuilderDto_.CellWidth;
 
-                                break;
-                        }
-
-                        // Adjust by the padding value if this is not the first column.
-                        if (destCol > 0)
-                        {
-                            destX += (spriteSheetBuilderDto_.Padding * destCol);
-                        }
-
-
-                        int destY = destRow * spriteSheetBuilderDto_.CellHeight;
-
-                        // Apply a transform for alignment
-                        switch (spriteSheetBuilderDto_.VerticalAlignment)
-                        {
-                            case SheetCellVerticalAlignment.Center:
-
-                                destY += ((spriteSheetBuilderDto_.CellHeight / 2) - (imageSource.CellHeight / 2));
-
-                                break;
-
-                            case SheetCellVerticalAlignment.Bottom:
-
-                                destY += (spriteSheetBuilderDto_.CellHeight - imageSource.CellHeight);
-
-                                break;
-                        }
-
-                        // Adjust by the padding value if this is not the first row.
-                        if (destRow > 0)
-                        {
-                            destY += (spriteSheetBuilderDto_.Padding * destRow);
-                        }
-
-                        System.Drawing.Rectangle sourceRect = new System.Drawing.Rectangle(sourceCol * imageSource.CellWidth, sourceRow * imageSource.CellHeight, imageSource.CellWidth, imageSource.CellHeight);
-
-                        System.Drawing.Rectangle destRect = new System.Drawing.Rectangle(destX, destY, imageSource.CellWidth, imageSource.CellHeight);
-
-                        // Perform the palette mapping.
-                        for (int y = 0; y < spriteImageSource.Height; y++)
-                        {
-                            for (int x = 0; x < spriteImageSource.Width; x++)
+                            // Apply a transform for alignment.
+                            switch (spriteSheetBuilderDto_.HorizontalAlignment)
                             {
-                                Color sourcePixel = spriteImageSource.GetPixel(x, y);
+                                case SheetCellHorizontalAlignment.Center:
 
-                                Color sourcePixelFullAlpha = Color.FromArgb(255, sourcePixel.R, sourcePixel.G, sourcePixel.G);
-                                                                
-                                if (spriteSheetBuilderDto_.PaletteMap.ColorMap.ContainsKey(sourcePixelFullAlpha))
+                                    destX += ((spriteSheetBuilderDto_.CellWidth / 2) - (imageSource.CellWidth / 2));
+
+                                    break;
+
+                                case SheetCellHorizontalAlignment.Right:
+
+                                    destX += (spriteSheetBuilderDto_.CellWidth - imageSource.CellWidth);
+
+                                    break;
+                            }
+
+                            // Adjust by the padding value if this is not the first column.
+                            if (destCol > 0)
+                            {
+                                destX += (spriteSheetBuilderDto_.Padding * destCol);
+                            }
+
+
+                            int destY = destRow * spriteSheetBuilderDto_.CellHeight;
+
+                            // Apply a transform for alignment
+                            switch (spriteSheetBuilderDto_.VerticalAlignment)
+                            {
+                                case SheetCellVerticalAlignment.Center:
+
+                                    destY += ((spriteSheetBuilderDto_.CellHeight / 2) - (imageSource.CellHeight / 2));
+
+                                    break;
+
+                                case SheetCellVerticalAlignment.Bottom:
+
+                                    destY += (spriteSheetBuilderDto_.CellHeight - imageSource.CellHeight);
+
+                                    break;
+                            }
+
+                            // Adjust by the padding value if this is not the first row.
+                            if (destRow > 0)
+                            {
+                                destY += (spriteSheetBuilderDto_.Padding * destRow);
+                            }
+
+                            System.Drawing.Rectangle sourceRect = new System.Drawing.Rectangle(sourceCol * imageSource.CellWidth, sourceRow * imageSource.CellHeight, imageSource.CellWidth, imageSource.CellHeight);
+
+                            System.Drawing.Rectangle destRect = new System.Drawing.Rectangle(destX, destY, imageSource.CellWidth, imageSource.CellHeight);
+
+                            // Perform the palette mapping.
+                            for (int y = 0; y < spriteImageSource.Height; y++)
+                            {
+                                for (int x = 0; x < spriteImageSource.Width; x++)
                                 {
-                                    Color mappedPixel = spriteSheetBuilderDto_.PaletteMap.ColorMap[sourcePixelFullAlpha];
+                                    Color sourcePixel = spriteImageSource.GetPixel(x, y);
 
-                                    if (mappedPixel != sourcePixelFullAlpha)
+                                    Color sourcePixelFullAlpha = Color.FromArgb(255, sourcePixel.R, sourcePixel.G, sourcePixel.G);
+
+                                    if (spriteSheetBuilderDto_.PaletteMap.ColorMap.ContainsKey(sourcePixelFullAlpha))
                                     {
-                                        spriteImageResult.SetPixel(x, y, mappedPixel);
+                                        Color mappedPixel = spriteSheetBuilderDto_.PaletteMap.ColorMap[sourcePixelFullAlpha];
+
+                                        if (mappedPixel != sourcePixelFullAlpha)
+                                        {
+                                            spriteImageResult.SetPixel(x, y, mappedPixel);
+                                        }
+                                        else
+                                        {
+                                            // Mapping to itself.
+                                            spriteImageResult.SetPixel(x, y, sourcePixel);
+                                        }
                                     }
                                     else
                                     {
-                                        // Mapping to itself.
                                         spriteImageResult.SetPixel(x, y, sourcePixel);
                                     }
                                 }
-                                else
-                                {
-                                    spriteImageResult.SetPixel(x, y, sourcePixel);
-                                }
                             }
-                        }                        
 
-                        //g.DrawImage(spriteImage, destRect, 0, 0, destRect.Width, destRect.Height, GraphicsUnit.Pixel, attr);
-                        g.DrawImage(spriteImageResult, destRect, sourceRect, GraphicsUnit.Pixel);
+                            //g.DrawImage(spriteImage, destRect, 0, 0, destRect.Width, destRect.Height, GraphicsUnit.Pixel, attr);
+                            g.DrawImage(spriteImageResult, destRect, sourceRect, GraphicsUnit.Pixel);
 
-                        imageCounter++;
+                            imageCounter++;
+                        }
+
+                        spriteImageSource.Dispose();
+
+                        spriteImageResult.Dispose();
                     }
-
-                    spriteImageSource.Dispose();
-
-                    spriteImageResult.Dispose();
                 }
 
                 lblInitialized.Visible = false;
@@ -625,8 +638,6 @@ namespace SpriteSheetBuilder
 
                     spriteSheetBuilderDto_.ImageSourceList.Add(sheetImageSource);
 
-                    lstbxFiles.Items.Add(fileName);
-
                     if (extractPalette == true)
                     {
                         extractPaletteFromImage(fileName);
@@ -639,6 +650,8 @@ namespace SpriteSheetBuilder
             {
                 MessageBox.Show(errorMessage);
             }
+
+            showMissingFilesDialog();
 
             buildFileName_ = filename;
 
@@ -775,9 +788,54 @@ namespace SpriteSheetBuilder
             }
         }
 
+        private void showMissingFilesDialog()
+        {
+            int missingFiles = 0;
+
+            foreach (SheetImageSourceDto imageSource in spriteSheetBuilderDto_.ImageSourceList)
+            {
+                if (File.Exists(imageSource.FileName) == false)
+                {
+                    imageSource.Exists = false;
+
+                    missingFiles++;
+                }
+            }
+
+            lstbxFiles.Items.Clear();
+
+            if (missingFiles > 0)
+            {
+                MissingFilesDialog missingFilesDialog = new MissingFilesDialog(spriteSheetBuilderDto_);
+
+                missingFilesDialog.ShowDialog(this);
+
+                btnFixErrors.Visible = false;
+
+                if (missingFilesDialog.MissingFileCount > 0)
+                {
+                    btnFixErrors.Visible = true;
+                }
+                else
+                {
+                    btnFixErrors.Visible = false;
+                }
+            }
+
+            foreach (SheetImageSourceDto imageSource in spriteSheetBuilderDto_.ImageSourceList)
+            {
+                lstbxFiles.Items.Add(imageSource.FileName);
+            }
+        }
+
         #endregion
 
         #region Event Handlers
+
+        private void btnFixErrors_Click(object sender, EventArgs e)
+        {
+            showMissingFilesDialog();
+        }
 
         private void btnMoveUp_Click(object sender, EventArgs e)
         {
@@ -901,6 +959,10 @@ namespace SpriteSheetBuilder
             {
                 Graphics g = e.Graphics;
 
+                Bitmap bmpBackground = backgroundGenerator_.GenerateBackground(bmpSpriteSheet_.Width, bmpSpriteSheet_.Height);
+
+                g.DrawImage(bmpBackground, new Point(0, 0));
+
                 int hscrollOffset = -1 * hsSpriteSheet.Value;
 
                 int vscrollOffset = -1 * vsSpriteSheet.Value;
@@ -927,14 +989,19 @@ namespace SpriteSheetBuilder
         }
 
         #endregion
-
     }
 
     public interface ISpriteSheetBuilderControl
     {
         #region Properties
 
+        BackgroundColorScheme BackgroundColorScheme { get; set; }
+
         bool ChangesMade { get; }
+
+        bool Enabled { get; set; }
+
+        string CurrentBuildFileName { get; }
 
         #endregion
 

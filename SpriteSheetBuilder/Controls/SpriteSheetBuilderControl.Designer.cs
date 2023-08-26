@@ -37,6 +37,8 @@
             this.lbExport = new System.Windows.Forms.Label();
             this.pgSpriteSheet = new System.Windows.Forms.PropertyGrid();
             this.scImport = new System.Windows.Forms.SplitContainer();
+            this.btnMoveDown = new System.Windows.Forms.Button();
+            this.btnMoveUp = new System.Windows.Forms.Button();
             this.lbImportFrom = new System.Windows.Forms.Label();
             this.lstbxFiles = new System.Windows.Forms.ListBox();
             this.pgImageSource = new System.Windows.Forms.PropertyGrid();
@@ -44,8 +46,8 @@
             this.vsSpriteSheet = new System.Windows.Forms.VScrollBar();
             this.hsSpriteSheet = new System.Windows.Forms.HScrollBar();
             this.pbSheetPreview = new System.Windows.Forms.PictureBox();
-            this.btnMoveUp = new System.Windows.Forms.Button();
-            this.btnMoveDown = new System.Windows.Forms.Button();
+            this.btnFixErrors = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tlpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scImages)).BeginInit();
             this.scImages.Panel1.SuspendLayout();
@@ -68,6 +70,10 @@
             this.scImport.Panel2.SuspendLayout();
             this.scImport.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSheetPreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpMain
@@ -199,9 +205,7 @@
             // 
             // scImport.Panel1
             // 
-            this.scImport.Panel1.Controls.Add(this.btnMoveDown);
-            this.scImport.Panel1.Controls.Add(this.btnMoveUp);
-            this.scImport.Panel1.Controls.Add(this.lbImportFrom);
+            this.scImport.Panel1.Controls.Add(this.splitContainer1);
             // 
             // scImport.Panel2
             // 
@@ -211,16 +215,35 @@
             this.scImport.SplitterWidth = 1;
             this.scImport.TabIndex = 2;
             // 
+            // btnMoveDown
+            // 
+            this.btnMoveDown.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveDown.Image")));
+            this.btnMoveDown.Location = new System.Drawing.Point(87, 1);
+            this.btnMoveDown.Name = "btnMoveDown";
+            this.btnMoveDown.Size = new System.Drawing.Size(36, 22);
+            this.btnMoveDown.TabIndex = 2;
+            this.btnMoveDown.UseVisualStyleBackColor = true;
+            this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
+            // 
+            // btnMoveUp
+            // 
+            this.btnMoveUp.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveUp.Image")));
+            this.btnMoveUp.Location = new System.Drawing.Point(45, 1);
+            this.btnMoveUp.Name = "btnMoveUp";
+            this.btnMoveUp.Size = new System.Drawing.Size(36, 22);
+            this.btnMoveUp.TabIndex = 1;
+            this.btnMoveUp.UseVisualStyleBackColor = true;
+            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
+            // 
             // lbImportFrom
             // 
             this.lbImportFrom.BackColor = System.Drawing.Color.Transparent;
-            this.lbImportFrom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbImportFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbImportFrom.Location = new System.Drawing.Point(0, 0);
+            this.lbImportFrom.Location = new System.Drawing.Point(3, -3);
             this.lbImportFrom.Name = "lbImportFrom";
             this.lbImportFrom.Size = new System.Drawing.Size(333, 25);
             this.lbImportFrom.TabIndex = 0;
-            this.lbImportFrom.Text = "Import From";
+            this.lbImportFrom.Text = "Import From Files";
             this.lbImportFrom.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // lstbxFiles
@@ -286,25 +309,37 @@
             this.pbSheetPreview.TabStop = false;
             this.pbSheetPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.pbSheetPreview_Paint);
             // 
-            // btnMoveUp
+            // btnFixErrors
             // 
-            this.btnMoveUp.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveUp.Image")));
-            this.btnMoveUp.Location = new System.Drawing.Point(252, 0);
-            this.btnMoveUp.Name = "btnMoveUp";
-            this.btnMoveUp.Size = new System.Drawing.Size(36, 22);
-            this.btnMoveUp.TabIndex = 1;
-            this.btnMoveUp.UseVisualStyleBackColor = true;
-            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
+            this.btnFixErrors.Image = ((System.Drawing.Image)(resources.GetObject("btnFixErrors.Image")));
+            this.btnFixErrors.Location = new System.Drawing.Point(3, 1);
+            this.btnFixErrors.Name = "btnFixErrors";
+            this.btnFixErrors.Size = new System.Drawing.Size(36, 22);
+            this.btnFixErrors.TabIndex = 3;
+            this.btnFixErrors.UseVisualStyleBackColor = true;
+            this.btnFixErrors.Visible = false;
+            this.btnFixErrors.Click += new System.EventHandler(this.btnFixErrors_Click);
             // 
-            // btnMoveDown
+            // splitContainer1
             // 
-            this.btnMoveDown.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveDown.Image")));
-            this.btnMoveDown.Location = new System.Drawing.Point(294, 0);
-            this.btnMoveDown.Name = "btnMoveDown";
-            this.btnMoveDown.Size = new System.Drawing.Size(36, 22);
-            this.btnMoveDown.TabIndex = 2;
-            this.btnMoveDown.UseVisualStyleBackColor = true;
-            this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.lbImportFrom);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnFixErrors);
+            this.splitContainer1.Panel2.Controls.Add(this.btnMoveUp);
+            this.splitContainer1.Panel2.Controls.Add(this.btnMoveDown);
+            this.splitContainer1.Size = new System.Drawing.Size(333, 25);
+            this.splitContainer1.SplitterDistance = 201;
+            this.splitContainer1.TabIndex = 4;
             // 
             // SpriteSheetBuilderControl
             // 
@@ -338,6 +373,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.scImport)).EndInit();
             this.scImport.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbSheetPreview)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -361,5 +400,7 @@
         private System.Windows.Forms.Label lblInitialized;
         private System.Windows.Forms.Button btnMoveDown;
         private System.Windows.Forms.Button btnMoveUp;
+        private System.Windows.Forms.Button btnFixErrors;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

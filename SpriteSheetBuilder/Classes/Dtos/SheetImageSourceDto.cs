@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpriteSheetBuilder
 { 
-    class SheetImageSourceDto
+    public class SheetImageSourceDto
     {
         public SheetImageSourceDto(string filename)
         {
@@ -54,7 +54,15 @@ namespace SpriteSheetBuilder
             set { _columns = value; }
         }
         private int _columns = 0;
-        
+
+        [BrowsableAttribute(false)]
+        public bool Exists
+        {
+            get { return _fileExists; }
+            set { _fileExists = value; }
+        }
+        private bool _fileExists = true;
+
         #endregion
     }
 }
