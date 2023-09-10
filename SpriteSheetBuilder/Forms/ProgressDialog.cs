@@ -5,7 +5,9 @@ using System.Windows.Forms;
 namespace SpriteSheetBuilder
 {
     #region Delegates
+
     public delegate void CancelClickedHandler(object sender, CancelClickedEventArgs e);
+
     #endregion
 
     public partial class ProgressDialog : Form, IProgressForm
@@ -26,17 +28,17 @@ namespace SpriteSheetBuilder
         {
             get
             {
-                return progressPercentage_;
+                return _progressPercentage;
             }
 
             set
             {
-                progressPercentage_ = value;
+                _progressPercentage = value;
 
-                progressBar.Value = progressPercentage_;
+                progressBar.Value = _progressPercentage;
             }
         }
-        private int progressPercentage_;
+        private int _progressPercentage;
 
         public void CenterToScreen()
         {

@@ -5,22 +5,17 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-// todo
-// 2. Add custom background themes
-// 3. add scaling
-// 4. add ability to move via click and drag
-
 namespace SpriteSheetBuilder
 {
     public partial class MissingFilesDialog : Form
     {
         #region Constructors
 
-        public MissingFilesDialog(SpriteSheetBuilderDto spriteSheetBuilderDto)
+        public MissingFilesDialog(SpriteSheetBuildFile spriteSheetBuildFile)
         {
             InitializeComponent();
 
-            _spriteSheetBuilderDto = spriteSheetBuilderDto;
+            _spriteSheetBuildFile = spriteSheetBuildFile;
 
             _progressDialog = new ProgressDialog(true);
 
@@ -33,7 +28,7 @@ namespace SpriteSheetBuilder
 
         private IProgressForm           _progressDialog;
 
-        private SpriteSheetBuilderDto   _spriteSheetBuilderDto;
+        private SpriteSheetBuildFile    _spriteSheetBuildFile;
 
         #endregion
 
@@ -48,7 +43,7 @@ namespace SpriteSheetBuilder
 
         private void bgWorkerSearchDirectory_DoWork(object sender, DoWorkEventArgs e)
         {
-            MissingFilesDto missingFilesDto = (MissingFilesDto)e.Argument;
+            MissingFiles missingFiles = (MissingFiles)e.Argument;
 
             // Loop through the missing files, get the root file name.
             // Look for it recursively in the selected directory.
@@ -56,7 +51,7 @@ namespace SpriteSheetBuilder
            List<string> lstMissingFiles = new List<string>();
 
             // Can't modify a collection when looping over it. Need to create a separate list.
-            foreach (KeyValuePair<string, string> kvp in missingFilesDto.OldFileToNewFileMap)
+            foreach (KeyValuePair<string, string> kvp in missingFiles.OldFileToNewFileMap)
             {
                 lstMissingFiles.Add(kvp.Key);
             }
@@ -67,13 +62,13 @@ namespace SpriteSheetBuilder
             {
                 string filenameNoPath = Path.GetFileName(filename);
 
-                string[] files = Directory.GetFiles(missingFilesDto.SearchDirectory, filenameNoPath, SearchOption.AllDirectories);
+                string[] files = Directory.GetFiles(missingFiles.SearchDirectory, filenameNoPath, SearchOption.AllDirectories);
 
                 // Eventually I should probably handle if it finds multiple valid files, but for now assume only 1 at most
                 // and just take the first one.
                 if (files.Length > 0)
                 {
-                    missingFilesDto.OldFileToNewFileMap[filename] = files[0];
+                    missingFiles.OldFileToNewFileMap[filename] = files[0];
 
                     filesFound++;
 
@@ -82,13 +77,13 @@ namespace SpriteSheetBuilder
 
                 if (bgWorkerSearchDirectory.CancellationPending)
                 {
-                    missingFilesDto.Cancel = true;
+                    missingFiles.Cancel = true;
 
                     break;
                 }
             }
 
-            e.Result = missingFilesDto;
+            e.Result = missingFiles;
         }
 
         private void bgWorkerSearchDirectory_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -98,15 +93,15 @@ namespace SpriteSheetBuilder
 
         private void bgWorkerSearchDirectory_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            MissingFilesDto missingFilesDto = (MissingFilesDto)e.Result;
+            MissingFiles missingFiles = (MissingFiles)e.Result;
 
-            if (missingFilesDto.Cancel == false)
+            if (missingFiles.Cancel == false)
             {
                 for (int i = 0; i < lvFiles.Items.Count; i++)
                 {
                     ListViewItem selectedItem = lvFiles.Items[i];
 
-                    string newFilename = missingFilesDto.OldFileToNewFileMap[selectedItem.SubItems[0].Text];
+                    string newFilename = missingFiles.OldFileToNewFileMap[selectedItem.SubItems[0].Text];
 
                     if (string.IsNullOrEmpty(newFilename) == false)
                     {
@@ -139,14 +134,14 @@ namespace SpriteSheetBuilder
 
                 if (string.IsNullOrEmpty(newFilename) == false)
                 {
-                    // Find the old filename in the dto and update it with the new one.
-                    for (int j = 0; j < _spriteSheetBuilderDto.ImageSourceList.Count; j++)
+                    // Find the old filename in the image source list and update it with the new one.
+                    for (int j = 0; j < _spriteSheetBuildFile.ImageSourceList.Count; j++)
                     {
-                        if (_spriteSheetBuilderDto.ImageSourceList[j].FileName == oldFilename)
+                        if (_spriteSheetBuildFile.ImageSourceList[j].FileName == oldFilename)
                         {
-                            _spriteSheetBuilderDto.ImageSourceList[j].FileName = newFilename;
+                            _spriteSheetBuildFile.ImageSourceList[j].FileName = newFilename;
 
-                            _spriteSheetBuilderDto.ImageSourceList[j].Exists = true;
+                            _spriteSheetBuildFile.ImageSourceList[j].Exists = true;
 
                             MissingFileCount--;
 
@@ -191,7 +186,7 @@ namespace SpriteSheetBuilder
                 // 1. The directory to search.
                 // 2. A dictionary of the missing files, that will map them to a new file.
 
-                MissingFilesDto missingFilesDto = new MissingFilesDto(searchFolder);
+                MissingFiles missingFiles = new MissingFiles(searchFolder);
 
                 // Loop through the missing files, get the root file name.
                 // Look for it recursively in the selected directory.
@@ -199,10 +194,10 @@ namespace SpriteSheetBuilder
                 {
                     ListViewItem selectedItem = lvFiles.Items[i];
 
-                    missingFilesDto.OldFileToNewFileMap.Add(selectedItem.SubItems[0].Text, string.Empty);
+                    missingFiles.OldFileToNewFileMap.Add(selectedItem.SubItems[0].Text, string.Empty);
                 }
 
-                bgWorkerSearchDirectory.RunWorkerAsync(missingFilesDto);
+                bgWorkerSearchDirectory.RunWorkerAsync(missingFiles);
             }
         }
 
@@ -231,7 +226,7 @@ namespace SpriteSheetBuilder
             // Build the list view.
             lvFiles.Items.Clear();
 
-            foreach (SheetImageSourceDto imageSource in _spriteSheetBuilderDto.ImageSourceList)
+            foreach (SheetImageSource imageSource in _spriteSheetBuildFile.ImageSourceList)
             {
                 if (imageSource.Exists == false)
                 {

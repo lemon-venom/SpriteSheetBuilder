@@ -2,9 +2,9 @@
 
 namespace SpriteSheetBuilder
 {
-    internal class MissingFilesDto
+    internal class MissingFiles
     {
-        public MissingFilesDto(string searchDirectory) 
+        public MissingFiles(string searchDirectory) 
         {
             SearchDirectory = searchDirectory;
         }

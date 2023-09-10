@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SpriteSheetBuilder
 { 
-    public class SheetImageSourceDto
+    public class SheetImageSource
     {
-        public SheetImageSourceDto(string filename)
+        public SheetImageSource(string filename)
         {
             FileName = filename;
         }
@@ -62,6 +62,13 @@ namespace SpriteSheetBuilder
             set { _fileExists = value; }
         }
         private bool _fileExists = true;
+
+        [BrowsableAttribute(false)]
+        public Palette Palette
+        {
+            get { return _palette; }
+        }
+        private Palette _palette = new Palette();
 
         #endregion
     }

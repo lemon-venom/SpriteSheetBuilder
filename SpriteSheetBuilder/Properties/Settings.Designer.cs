@@ -38,12 +38,48 @@ namespace SpriteSheetBuilder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string BackgroundColors {
+        public string Themes {
             get {
-                return ((string)(this["BackgroundColors"]));
+                return ((string)(this["Themes"]));
             }
             set {
-                this["BackgroundColors"] = value;
+                this["Themes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public double Scale {
+            get {
+                return ((double)(this["Scale"]));
+            }
+            set {
+                this["Scale"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Light")]
+        public string SelectedTheme {
+            get {
+                return ((string)(this["SelectedTheme"]));
+            }
+            set {
+                this["SelectedTheme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowBoundaries {
+            get {
+                return ((bool)(this["ShowBoundaries"]));
+            }
+            set {
+                this["ShowBoundaries"] = value;
             }
         }
     }

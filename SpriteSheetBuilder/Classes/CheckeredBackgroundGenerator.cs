@@ -8,46 +8,60 @@ namespace SpriteSheetBuilder
 
         public Bitmap BackgroundImage
         {
-            get { return bmpBackground_; }
+            get { return _bmpBackground; }
         }
-        private Bitmap bmpBackground_ = null;
-        
+        private Bitmap _bmpBackground = null;
+
         public BackgroundColorScheme BackgroundColorScheme
         {
-            get { return backgroundColorScheme_; }
-            set { backgroundColorScheme_ = value; }
+            get { return _backgroundColorScheme; }
+            set { _backgroundColorScheme = value; }
         }
-        private BackgroundColorScheme backgroundColorScheme_ = BackgroundColorScheme.StandardLight;
-        
+        private BackgroundColorScheme _backgroundColorScheme = BackgroundColorScheme.StandardLight;
+
+        public Color BackgroundColor1
+        {
+            get { return _backgroundColor1; }
+            set { _backgroundColor1 = value; }
+        }
+        private Color _backgroundColor1 = Color.LightGray;
+
+        public Color BackgroundColor2
+        {
+            get { return _backgroundColor2; }
+            set { _backgroundColor2 = value; }
+        }
+        private Color _backgroundColor2 = Color.White;
+
         #endregion
 
         #region Public Functions
 
         public void Regenerate()
         {
-            generateBackground_ = true;
+            _generateBackground = true;
         }
-        private bool generateBackground_;
+        private bool _generateBackground;
         
         public Bitmap GenerateBackground(int width, int height)
         {
-            if (generateBackground_ == true || bmpBackground_ == null)
+            if (_generateBackground == true || _bmpBackground == null)
             {
                 // Dispose of the old background object.
-                if (bmpBackground_ != null)
+                if (_bmpBackground != null)
                 {
-                    bmpBackground_.Dispose();
-                    bmpBackground_ = null;
+                    _bmpBackground.Dispose();
+                    _bmpBackground = null;
                 }
 
-                bmpBackground_ = new Bitmap(width, height);
+                _bmpBackground = new Bitmap(width, height);
                 
                 generateBackground(width, height);
                 
-                generateBackground_ = false;
+                _generateBackground = false;
             }
 
-            return bmpBackground_;
+            return _bmpBackground;
         }
 
         #endregion
@@ -56,46 +70,60 @@ namespace SpriteSheetBuilder
 
         private void generateBackground(int width, int height)
         {
-            Graphics gBackground = Graphics.FromImage(bmpBackground_);
+            Graphics gBackground = Graphics.FromImage(_bmpBackground);
 
-            SolidBrush bTransparency1;
-            SolidBrush bTransparency2;
+            SolidBrush bColor1;
+            SolidBrush bColor2;
 
             switch (BackgroundColorScheme)
             {
+                case BackgroundColorScheme.UserDefined:
+
+                    bColor1 = new SolidBrush(_backgroundColor1);
+                    bColor2 = new SolidBrush(_backgroundColor2);
+
+                    break;
+
                 case BackgroundColorScheme.StandardDark:
 
-                    bTransparency1 = new SolidBrush(Color.FromArgb(44, 44, 44));
-                    bTransparency2 = new SolidBrush(Color.Black);
+                    bColor1 = new SolidBrush(Color.FromArgb(44, 44, 44));
+                    bColor2 = new SolidBrush(Color.Black);
 
                     break;
 
                 case BackgroundColorScheme.Vivid:
 
-                    bTransparency1 = new SolidBrush(Color.Magenta);
-                    bTransparency2 = new SolidBrush(Color.FromArgb(105, 3, 128));
+                    bColor1 = new SolidBrush(Color.Magenta);
+                    bColor2 = new SolidBrush(Color.FromArgb(105, 3, 128));
 
                     break;
 
                 case BackgroundColorScheme.Neon:
 
-                    bTransparency1 = new SolidBrush(Color.FromArgb(81, 166, 14));
-                    bTransparency2 = new SolidBrush(Color.FromArgb(116, 238, 21));
+                    bColor1 = new SolidBrush(Color.FromArgb(81, 166, 14));
+                    bColor2 = new SolidBrush(Color.FromArgb(116, 238, 21));
 
                     break;
 
                 case BackgroundColorScheme.Pastel:
 
-                    bTransparency1 = new SolidBrush(Color.FromArgb(224, 215, 255));
-                    bTransparency2 = new SolidBrush(Color.FromArgb(176, 153, 255));
+                    bColor1 = new SolidBrush(Color.FromArgb(224, 215, 255));
+                    bColor2 = new SolidBrush(Color.FromArgb(176, 153, 255));
+
+                    break;
+
+                case BackgroundColorScheme.Tomato:
+
+                    bColor1 = new SolidBrush(Color.Tomato);
+                    bColor2 = new SolidBrush(Color.LightSalmon);
 
                     break;
 
                 case BackgroundColorScheme.StandardLight:
                 default:
 
-                    bTransparency1 = new SolidBrush(Color.LightGray);
-                    bTransparency2 = new SolidBrush(Color.White);
+                    bColor1 = new SolidBrush(Color.LightGray);
+                    bColor2 = new SolidBrush(Color.White);
 
                     break;
 
@@ -126,11 +154,11 @@ namespace SpriteSheetBuilder
 
                     if (toggle)
                     {
-                        gBackground.FillRectangle(bTransparency1, i, j, boxSize - sliceOffX, boxSize - sliceOffY);
+                        gBackground.FillRectangle(bColor1, i, j, boxSize - sliceOffX, boxSize - sliceOffY);
                     }
                     else
                     {
-                        gBackground.FillRectangle(bTransparency2, i, j, boxSize - sliceOffX, boxSize - sliceOffY);
+                        gBackground.FillRectangle(bColor2, i, j, boxSize - sliceOffX, boxSize - sliceOffY);
                     }
 
                     toggle = !toggle;
