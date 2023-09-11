@@ -865,6 +865,11 @@ namespace SpriteSheetBuilder
             pbSheetPreview.BackColor = SystemColors.ControlDarkDark;
 
             btnExport.Enabled = false;
+
+            Utilities.NameValidator.ClearAllNames("palette");
+
+            // Create a palette name of empty string, for the default palette, so it can be selected from the dropdown.
+            Utilities.NameValidator.AddName(string.Empty, "palette");
         }
 
         private void openBuildFile(string filename)

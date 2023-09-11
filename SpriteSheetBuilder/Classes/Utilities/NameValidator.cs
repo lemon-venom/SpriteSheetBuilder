@@ -72,6 +72,18 @@ namespace SpriteSheetBuilder
             }
         }
 
+        public void ClearAllNames(string group)
+        {
+            if (_nameTrackers.ContainsKey(group) == true)
+            {
+                _nameTrackers[group].Names.Clear();
+
+                _nameTrackers[group].NamesList.Clear();
+
+                namesChanged(group);
+            }
+        }
+
         public void DeleteName(string name, string group)
         {
             if (_nameTrackers.ContainsKey(group) == true)
@@ -124,6 +136,8 @@ namespace SpriteSheetBuilder
         void AddName(string name, string group);
 
         void ChangeName(string oldName, string newName, string group);
+
+        void ClearAllNames(string group);
 
         void DeleteName(string name, string group);
 

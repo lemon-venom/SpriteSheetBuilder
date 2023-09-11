@@ -40,7 +40,14 @@ namespace SpriteSheetBuilder
                     _bmpImage.Dispose();
                 }
 
-                _bmpImage = new Bitmap(value.FileName);
+                if (File.Exists(value.FileName))
+                {
+                    _bmpImage = new Bitmap(value.FileName);
+                }
+                else
+                {
+                    MessageBox.Show("File " + value.FileName + " was not found. It may have been moved.", "File Not Found", MessageBoxButtons.OK);
+                }
             }
         }
 
