@@ -595,9 +595,13 @@ namespace SpriteSheetBuilder
                                 destY += (_spriteSheetBuildFile.CellPadding * destRow);
                             }
 
-                            System.Drawing.Rectangle sourceRect = new System.Drawing.Rectangle(sourceCol * imageSource.CellWidth, sourceRow * imageSource.CellHeight, imageSource.CellWidth, imageSource.CellHeight);
+                            int sourceX = (sourceCol * (imageSource.CellWidth + imageSource.CellPadding)) + imageSource.Border;
 
-                            System.Drawing.Rectangle destRect = new System.Drawing.Rectangle(destX, destY, imageSource.CellWidth, imageSource.CellHeight);
+                            int sourceY = (sourceRow * (imageSource.CellHeight + imageSource.CellPadding)) + imageSource.Border;
+
+                            Rectangle sourceRect = new System.Drawing.Rectangle(sourceX, sourceY, imageSource.CellWidth, imageSource.CellHeight);
+
+                            Rectangle destRect = new System.Drawing.Rectangle(destX, destY, imageSource.CellWidth, imageSource.CellHeight);
 
                             // Perform the palette mapping.
                             for (int y = 0; y < spriteImageSource.Height; y++)
@@ -948,6 +952,13 @@ namespace SpriteSheetBuilder
                         sheetImageSource.CellCount = Convert.ToInt32(fileData[i + 4]);
                     }
 
+                    // Padding and Border added as a part of an updated layout.
+                    if (fieldsPerFile > 5)
+                    {
+                        sheetImageSource.Border = Convert.ToInt32(fileData[i + 5]);
+                        sheetImageSource.CellPadding = Convert.ToInt32(fileData[i + 6]);
+                    }
+
                     _spriteSheetBuildFile.ImageSourceList.Add(sheetImageSource);
 
                     extractPaletteFromImage(sheetImageSource);
@@ -1092,7 +1103,7 @@ namespace SpriteSheetBuilder
                     string fileContents = string.Empty;
 
                     int headerFields = 12;
-                    int fieldsPerFile = 5;
+                    int fieldsPerFile = 7;
                     fileContents += headerFields.ToString() + Environment.NewLine;
                     fileContents += fieldsPerFile.ToString() + Environment.NewLine;
                     fileContents += _spriteSheetBuildFile.CellHeight.ToString() + Environment.NewLine;
@@ -1124,6 +1135,8 @@ namespace SpriteSheetBuilder
                         fileContents += Environment.NewLine + imageSource.CellHeight.ToString();
                         fileContents += Environment.NewLine + imageSource.Columns.ToString();
                         fileContents += Environment.NewLine + imageSource.CellCount.ToString();
+                        fileContents += Environment.NewLine + imageSource.Border.ToString();
+                        fileContents += Environment.NewLine + imageSource.CellPadding.ToString();
                     }
 
                     File.WriteAllText(_buildFileName, fileContents);

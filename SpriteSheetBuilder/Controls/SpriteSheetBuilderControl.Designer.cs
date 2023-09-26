@@ -40,7 +40,6 @@
             this.btnPalette = new System.Windows.Forms.Button();
             this.pgSpriteSheet = new System.Windows.Forms.PropertyGrid();
             this.scImport = new System.Windows.Forms.SplitContainer();
-            this.mnuButtonAddImages = new SpriteSheetBuilder.MenuButton();
             this.cmnuAddImages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiAddSingleImage = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAddImageStrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +57,7 @@
             this.bgWorkerBuildSheet = new System.ComponentModel.BackgroundWorker();
             this.ofdAddImages = new System.Windows.Forms.OpenFileDialog();
             this.ttButtonInfo = new System.Windows.Forms.ToolTip(this.components);
+            this.mnuButtonAddImages = new SpriteSheetBuilder.MenuButton();
             this.tlpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scImages)).BeginInit();
             this.scImages.Panel1.SuspendLayout();
@@ -136,7 +136,7 @@
             // 
             this.scFilesProperties.Panel2.Controls.Add(this.pgImageSource);
             this.scFilesProperties.Size = new System.Drawing.Size(333, 513);
-            this.scFilesProperties.SplitterDistance = 442;
+            this.scFilesProperties.SplitterDistance = 410;
             this.scFilesProperties.TabIndex = 0;
             this.scFilesProperties.TabStop = false;
             // 
@@ -156,7 +156,7 @@
             // scExportImport.Panel2
             // 
             this.scExportImport.Panel2.Controls.Add(this.scImport);
-            this.scExportImport.Size = new System.Drawing.Size(333, 442);
+            this.scExportImport.Size = new System.Drawing.Size(333, 410);
             this.scExportImport.SplitterDistance = 176;
             this.scExportImport.TabIndex = 2;
             this.scExportImport.TabStop = false;
@@ -251,23 +251,10 @@
             // scImport.Panel2
             // 
             this.scImport.Panel2.Controls.Add(this.lstbxFiles);
-            this.scImport.Size = new System.Drawing.Size(333, 262);
+            this.scImport.Size = new System.Drawing.Size(333, 230);
             this.scImport.SplitterDistance = 25;
             this.scImport.SplitterWidth = 1;
             this.scImport.TabIndex = 2;
-            // 
-            // mnuButtonAddImages
-            // 
-            this.mnuButtonAddImages.Image = ((System.Drawing.Image)(resources.GetObject("mnuButtonAddImages.Image")));
-            this.mnuButtonAddImages.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mnuButtonAddImages.Location = new System.Drawing.Point(3, 3);
-            this.mnuButtonAddImages.Menu = this.cmnuAddImages;
-            this.mnuButtonAddImages.Name = "mnuButtonAddImages";
-            this.mnuButtonAddImages.ShowMenuUnderCursor = true;
-            this.mnuButtonAddImages.Size = new System.Drawing.Size(39, 22);
-            this.mnuButtonAddImages.TabIndex = 9;
-            this.ttButtonInfo.SetToolTip(this.mnuButtonAddImages, "Add Images");
-            this.mnuButtonAddImages.UseVisualStyleBackColor = true;
             // 
             // cmnuAddImages
             // 
@@ -353,7 +340,7 @@
             this.lstbxFiles.Margin = new System.Windows.Forms.Padding(0);
             this.lstbxFiles.Name = "lstbxFiles";
             this.lstbxFiles.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstbxFiles.Size = new System.Drawing.Size(333, 236);
+            this.lstbxFiles.Size = new System.Drawing.Size(333, 204);
             this.lstbxFiles.TabIndex = 1;
             this.lstbxFiles.SelectedIndexChanged += new System.EventHandler(this.lstbxFiles_SelectedIndexChanged);
             this.lstbxFiles.DoubleClick += new System.EventHandler(this.lstbxFiles_DoubleClick);
@@ -366,7 +353,7 @@
             this.pgImageSource.Location = new System.Drawing.Point(0, 0);
             this.pgImageSource.Name = "pgImageSource";
             this.pgImageSource.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-            this.pgImageSource.Size = new System.Drawing.Size(333, 67);
+            this.pgImageSource.Size = new System.Drawing.Size(333, 99);
             this.pgImageSource.TabIndex = 1;
             this.pgImageSource.ToolbarVisible = false;
             // 
@@ -422,6 +409,19 @@
             this.bgWorkerBuildSheet.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorkerBuildSheet_DoWork);
             this.bgWorkerBuildSheet.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgWorkerBuildSheet_ProgressChanged);
             this.bgWorkerBuildSheet.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgWorkerBuildSheet_RunWorkerCompleted);
+            // 
+            // mnuButtonAddImages
+            // 
+            this.mnuButtonAddImages.Image = ((System.Drawing.Image)(resources.GetObject("mnuButtonAddImages.Image")));
+            this.mnuButtonAddImages.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mnuButtonAddImages.Location = new System.Drawing.Point(3, 3);
+            this.mnuButtonAddImages.Menu = this.cmnuAddImages;
+            this.mnuButtonAddImages.Name = "mnuButtonAddImages";
+            this.mnuButtonAddImages.ShowMenuUnderCursor = true;
+            this.mnuButtonAddImages.Size = new System.Drawing.Size(39, 22);
+            this.mnuButtonAddImages.TabIndex = 9;
+            this.ttButtonInfo.SetToolTip(this.mnuButtonAddImages, "Add Images");
+            this.mnuButtonAddImages.UseVisualStyleBackColor = true;
             // 
             // SpriteSheetBuilderControl
             // 

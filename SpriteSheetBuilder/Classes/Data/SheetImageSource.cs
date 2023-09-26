@@ -16,8 +16,17 @@ namespace SpriteSheetBuilder
         }
 
         public String FileName;
-        
+
         #region Properties
+
+        [CategoryAttribute("Image Source Properties"),
+         DescriptionAttribute("The size of the border around the sheet")]
+        public int Border
+        {
+            get { return _border; }
+            set { _border = value; }
+        }
+        private int _border = 0;
 
         [CategoryAttribute("Image Source Properties"),
          DescriptionAttribute("The number total cells")]
@@ -45,7 +54,16 @@ namespace SpriteSheetBuilder
             set { _cellWidth = value; }
         }
         private int _cellWidth = 0;
-        
+
+        [CategoryAttribute("Image Source Properties"),
+         DescriptionAttribute("The padding size between the cells")]
+        public int CellPadding
+        {
+            get { return _callPadding; }
+            set { _callPadding = value; }
+        }
+        private int _callPadding = 0;
+
         [CategoryAttribute("Image Source Properties"),
          DescriptionAttribute("The number of cell columns")]
         public int Columns
