@@ -935,7 +935,7 @@ namespace SpriteSheetBuilder
 
                 if (headerSize >= 12)
                 {
-                    _spriteSheetBuildFile.BorderWidth = Convert.ToInt32(fileData[10]);
+                    _spriteSheetBuildFile.BorderWidth = Convert.ToInt32(fileData[11]);
                 }
 
                 for (int i = headerSize; i < fileData.Length; i += fieldsPerFile)
